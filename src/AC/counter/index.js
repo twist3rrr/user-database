@@ -1,4 +1,4 @@
-import { COUNTER } from '../constants';
+import { COUNTER } from './../../constants';
 
 export default function counter(number) {
     return dispatch => {
@@ -10,4 +10,3 @@ export default function counter(number) {
         });
     };
 }
-

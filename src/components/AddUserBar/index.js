@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
+import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import DatePicker from 'material-ui/DatePicker';
 import TextField from 'material-ui/TextField';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
@@ -10,10 +10,13 @@ export default class AddUserBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            firstName: '',
-            lastName: '',
-            nickName: '',
-            dateOfBirth: null
+            userData: {
+                firstName: '',
+                lastName: '',
+                nickName: '',
+                dateOfBirth: null
+            },
+            lastUserData: {}
         };
 
         this.toolbarGroupStyle = {
@@ -21,6 +24,19 @@ export default class AddUserBar extends Component {
         };
 
         this.defaultChangeHandler = this.props.defaultChangeHandler.bind(this);
+        this.addUser = this.addUser.bind(this);
+    }
+
+    addUser() { // TODO: Toaster notification ERROR
+        const { userData, lastUserData } = this.state;
+        if (userData === lastUserData) {
+            console.log('Same Data');
+        } else {
+            this.props.addUser(this.state.userData);
+            this.setState({
+                lastUserData: userData
+            });
+        }
     }
 
     render() {
@@ -32,8 +48,8 @@ export default class AddUserBar extends Component {
                             <TextField
                                 hintText="Write your first name here ..."
                                 floatingLabelText="First name"
-                                value={this.state.firstName}
-                                onChange={(e) => { this.defaultChangeHandler('firstName', e.target.value); }}
+                                value={this.state.userData.firstName}
+                                onChange={(e) => { this.defaultChangeHandler(e.target.value, 'userData', 'firstName'); }}
                             />
                         </div>
                     </ToolbarGroup>
@@ -42,8 +58,8 @@ export default class AddUserBar extends Component {
                             <TextField
                                 hintText="Write your last name here ..."
                                 floatingLabelText="Last name"
-                                value={this.state.lastName}
-                                onChange={(e) => { this.defaultChangeHandler('lastName', e.target.value); }}
+                                value={this.state.userData.lastName}
+                                onChange={(e) => { this.defaultChangeHandler(e.target.value, 'userData', 'lastName'); }}
                             />
                         </div>
                     </ToolbarGroup>
@@ -52,8 +68,8 @@ export default class AddUserBar extends Component {
                             <TextField
                                 hintText="Write your nick-name here ..."
                                 floatingLabelText="Nick-name"
-                                value={this.state.nickName}
-                                onChange={(e) => { this.defaultChangeHandler('nickName', e.target.value); }}
+                                value={this.state.userData.nickName}
+                                onChange={(e) => { this.defaultChangeHandler(e.target.value, 'userData', 'nickName'); }}
                             />
                         </div>
                     </ToolbarGroup>
@@ -61,12 +77,15 @@ export default class AddUserBar extends Component {
                         <DatePicker
                             hintText="Open to Year"
                             openToYearSelection={true}
-                            value={this.state.dateOfBirth}
-                            onChange={(e, date) => { this.defaultChangeHandler('dateOfBirth', date); }}
+                            value={this.state.userData.dateOfBirth}
+                            onChange={(e, date) => { this.defaultChangeHandler(date, 'userData', 'dateOfBirth'); }}
                         />
                     </ToolbarGroup>
                     <ToolbarGroup>
-                        <FloatingActionButton mini={true}>
+                        <FloatingActionButton
+                            mini={true}
+                            onClick={() => this.addUser()}
+                        >
                             <ContentAdd />
                         </FloatingActionButton>
                     </ToolbarGroup>

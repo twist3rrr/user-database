@@ -1,4 +1,4 @@
-import { COUNTER } from '../constants';
+import { COUNTER } from './../../constants';
 
 const defaultState = {
     counter: 0

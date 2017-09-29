@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
+
+// COMPONENTS
 import AddUserBar from './AddUserBar';
-import counter from '../AC/counter';
+import UsersTable from './UsersTable';
+
+// UI COMPONENTS
 import RaisedButton from 'material-ui/RaisedButton';
+
+// ACTIONS
+import addUser from './../AC/user';
+import counter from './../AC/counter';
 
 
 class App extends Component {
@@ -13,19 +22,35 @@ class App extends Component {
         };
     }
 
-    defaultChangeHandler(statePropName, value) {
-        this.setState({
-            [statePropName]: value
-        });
+    defaultChangeHandler(value, statePropName, stateSecondLevelName) {
+        if (stateSecondLevelName) {
+            this.setState({
+                ...this.state,
+                [statePropName]: {
+                    ...this.state[statePropName],
+                    [stateSecondLevelName]: value
+                }
+            });
+        } else {
+            this.setState({
+                [statePropName]: value
+            });
+        }
     }
 
     render() {
-        const { counterValue, counter } = this.props;
+        const { counterValue,
+                counter,
+                usersList,
+                addUser } = this.props;
+
         return (
             <div>
                 <AddUserBar
                     defaultChangeHandler={this.defaultChangeHandler}
+                    addUser={addUser}
                 />
+                <UsersTable usersList={usersList} />
                 <h1>{counterValue}</h1>
                 <RaisedButton onClick={() => counter(1)} primary={true} label="INCREMENT" />
             </div>
@@ -34,11 +59,15 @@ class App extends Component {
 }
 
 export default connect((state) => {
-    const { counter } = state.counter;
+    const {
+        counter,
+        usersList } = state;
 
     return {
-        counterValue: counter
+        counterValue: counter.counter,
+        usersList: usersList.usersList
     };
 }, {
-    counter
+    counter,
+    addUser
 })(App);
