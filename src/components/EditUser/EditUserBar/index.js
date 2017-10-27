@@ -1,23 +1,19 @@
 import React, { Component } from 'react';
-// Material Ui components
+// Material Ui Components
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import DatePicker from 'material-ui/DatePicker';
 import TextField from 'material-ui/TextField';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
-
-const initialUserData = {
-    firstName: '',
-    lastName: '',
-    nickName: '',
-    dateOfBirth: null
-};
+import RaisedButton from 'material-ui/RaisedButton';
+// React router components
+import { Link } from 'react-router-dom';
 
 export default class AddUserBar extends Component {
     constructor(props) {
         super(props);
+        const userData = props.currentUserData;
+        userData.dateOfBirth = userData.dateOfBirth ? new Date(userData.dateOfBirth) : null;
         this.state = {
-            userData: initialUserData
+            userData
         };
 
         this.toolbarGroupStyle = {
@@ -25,19 +21,10 @@ export default class AddUserBar extends Component {
         };
 
         this.defaultChangeHandler = this.props.defaultChangeHandler.bind(this);
-        this.addUser = this.addUser.bind(this);
-    }
-
-    addUser() {
-        const { userData } = this.state;
-
-        this.props.addUser(userData);
-        this.setState({
-            userData: initialUserData
-        });
     }
 
     render() {
+        const { changeUserInfo } = this.props;
         return (
             <div>
                 <Toolbar>
@@ -80,12 +67,12 @@ export default class AddUserBar extends Component {
                         />
                     </ToolbarGroup>
                     <ToolbarGroup>
-                        <FloatingActionButton
-                            mini={true}
-                            onClick={() => this.addUser()}
-                        >
-                            <ContentAdd />
-                        </FloatingActionButton>
+                        <Link to="/">
+                            <RaisedButton label="Go to list" secondary={true} />
+                        </Link>
+                    </ToolbarGroup>
+                    <ToolbarGroup>
+                        <RaisedButton label="Confirm" primary={true} onClick={() => changeUserInfo(this.state.userData)} />
                     </ToolbarGroup>
                 </Toolbar>
             </div>

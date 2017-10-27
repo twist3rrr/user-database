@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-
-// COMPONENTS
+// React router
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+// Components
 import AddUserBar from './AddUserBar';
 import UsersTable from './UsersTable';
-
-// UI COMPONENTS
-import RaisedButton from 'material-ui/RaisedButton';
-
-// ACTIONS
-import addUser from './../AC/user';
-import counter from './../AC/counter';
-
+import EditUser from './EditUser';
+// Actions
+import { addUser, deleteUser, changeUserInfo } from './../AC/user';
 
 class App extends Component {
     constructor() {
@@ -39,35 +34,53 @@ class App extends Component {
     }
 
     render() {
-        const { counterValue,
-                counter,
+        const {
                 usersList,
-                addUser } = this.props;
+                addUser,
+                deleteUser,
+                changeUserInfo
+            } = this.props;
+
+        const userEditPage = () => {
+            return (
+                <div>
+                    <AddUserBar
+                        defaultChangeHandler={this.defaultChangeHandler}
+                        addUser={addUser}
+                    />
+                    <UsersTable
+                        usersList={usersList}
+                        deleteUser={deleteUser}
+                    />
+                </div>
+            );
+        };
 
         return (
-            <div>
-                <AddUserBar
-                    defaultChangeHandler={this.defaultChangeHandler}
-                    addUser={addUser}
-                />
-                <UsersTable usersList={usersList} />
-                <h1>{counterValue}</h1>
-                <RaisedButton onClick={() => counter(1)} primary={true} label="INCREMENT" />
-            </div>
+            <Router>
+                <div>
+                    <Route exact path="/" component={userEditPage} />
+                    <Route
+                        path="/users/:userId"
+                        render={({ match }) => {
+                            return <EditUser userId={match.params.userId} changeUserInfo={changeUserInfo} usersList={usersList} defaultChangeHandler={this.defaultChangeHandler} />;
+                        }}
+                    />
+                </div>
+            </Router>
         );
     }
 }
 
 export default connect((state) => {
     const {
-        counter,
         usersList } = state;
 
     return {
-        counterValue: counter.counter,
         usersList: usersList.usersList
     };
 }, {
-    counter,
-    addUser
+    addUser,
+    deleteUser,
+    changeUserInfo
 })(App);

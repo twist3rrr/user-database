@@ -25,7 +25,8 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^5.1.0",
     "eslint-plugin-react": "^7.0.1",
-    "react-scripts": "1.0.10"
+    "react-scripts": "1.0.10",
+    "react-svg": "^2.1.22"
   },
   "scripts": {
     "start": "react-scripts start",

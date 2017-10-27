@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+// App component
 import App from './components/App';
+// Redux provider component
 import { Provider } from 'react-redux';
+// Store
 import store from './store';
-import 'babel-polyfill'; // Because error connected with validation component in IE
-
+// Because error connected with validation component in IE
+import 'babel-polyfill';
+// Material UI theme provider
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 ReactDOM.render(
