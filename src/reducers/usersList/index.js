@@ -4,25 +4,25 @@ import { randomId, findUserById } from '../../helpers';
 const defaultState = {
     usersList: [
         {
-            id: '587336275748656',
+            id: '58736275748656',
             firstName: 'Nick',
             lastName: 'Bolton',
             nickName: 'nikky',
-            dateOfBirth: 'Sat Sep 29 2018 14:17:21 GMT+0200 (Central Europe Daylight Time)'
+            dateOfBirth: 'Sat Sep 30 2018 14:17:21 GMT+0200 (Central Europe Daylight Time)'
         },
         {
-            id: '587336275748652',
+            id: '58733625748652',
             firstName: 'Jack',
             lastName: 'Pirson',
             nickName: 'j@kky',
             dateOfBirth: 'Sat Sep 29 2018 14:17:21 GMT+0200 (Central Europe Daylight Time)'
         },
         {
-            id: '587336275748657',
+            id: '58736275748657',
             firstName: 'Piter',
-            lastName: 'Larson',
+            lastName: 'Parkinson',
             nickName: 'p!t',
-            dateOfBirth: 'Sat Sep 29 2018 14:17:21 GMT+0200 (Central Europe Daylight Time)'
+            dateOfBirth: 'Sat Sep 21 2018 14:17:21 GMT+0200 (Central Europe Daylight Time)'
         }
     ]
 };
@@ -42,6 +42,7 @@ export default function usersList(state = defaultState, action = {}) {
             const user = Object.assign({}, payload.user);
 
             user.id = randomId();
+            user.dateOfBirth = user.dateOfBirth.toString();
             newUsersList.push(user);
             return {
                 ...state,

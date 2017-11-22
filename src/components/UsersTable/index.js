@@ -14,15 +14,33 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import ReactSVG from 'react-svg';
 // Helper function
-import { convertDateFromUtcString } from '../../helpers';
+import { convertDateFromUtcString, compareFunctions } from '../../helpers';
+// Constants
+import { SORTING_USER_LIST_TYPES } from '../../constants';
 
 export default class UsersTable extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            sortingType: ''
+        };
+
+        this.stateSetValue = this.stateSetValue.bind(this);
+    }
+
+    stateSetValue(prop, value) {
+        this.setState({
+            [prop]: value
+        });
+    }
 
     render() {
         const {
                 usersList,
                 deleteUser
         } = this.props;
+
+        const sortedList = (this.state.sortingType && usersList.length) ? usersList.sort(compareFunctions[this.state.sortingType]) : usersList;
 
         const usersTable = usersList.length ? (
             <Table>
@@ -31,11 +49,11 @@ export default class UsersTable extends Component {
                     displaySelectAll={false}
                 >
                     <TableRow>
-                        <TableHeaderColumn>ID</TableHeaderColumn>
-                        <TableHeaderColumn>First Name</TableHeaderColumn>
-                        <TableHeaderColumn>Last Name</TableHeaderColumn>
-                        <TableHeaderColumn>Nick Name</TableHeaderColumn>
-                        <TableHeaderColumn>Date of birth</TableHeaderColumn>
+                        <TableHeaderColumn><span onClick={() => this.stateSetValue('sortingType', SORTING_USER_LIST_TYPES.BY_ID)}>ID ⇵</span></TableHeaderColumn>
+                        <TableHeaderColumn><span onClick={() => this.stateSetValue('sortingType', SORTING_USER_LIST_TYPES.BY_FIRST_NAME)}>First Name ⇵</span></TableHeaderColumn>
+                        <TableHeaderColumn><span onClick={() => this.stateSetValue('sortingType', SORTING_USER_LIST_TYPES.BY_LAST_NAME)}>Last Name ⇵</span></TableHeaderColumn>
+                        <TableHeaderColumn><span onClick={() => this.stateSetValue('sortingType', SORTING_USER_LIST_TYPES.BY_NICK_NAME)}>Nick Name ⇵</span></TableHeaderColumn>
+                        <TableHeaderColumn><span onClick={() => this.stateSetValue('sortingType', SORTING_USER_LIST_TYPES.BY_BIRTH_DATE)}>Date of Birth ⇵</span></TableHeaderColumn>
                         <TableHeaderColumn
                             style={{
                                 width: 20
@@ -53,7 +71,7 @@ export default class UsersTable extends Component {
                     selectable={false}
                 >
                 {
-                    usersList.map((user) => {
+                    sortedList.map((user) => {
                         return (
                             <TableRow key={user.id} selectable={false}>
                                 <TableRowColumn>{user.id}</TableRowColumn>
@@ -82,7 +100,6 @@ export default class UsersTable extends Component {
                                             />
                                         </Link>
                                     </FloatingActionButton>
-                                    
                                 </TableRowColumn>
                                 <TableRowColumn
                                     style={{
