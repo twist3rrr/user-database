@@ -24,7 +24,7 @@ export default class AddUserBar extends Component {
     }
 
     render() {
-        const { changeUserInfo } = this.props;
+        const { changeUserInfo, history } = this.props;
         return (
             <div>
                 <Toolbar>
@@ -67,12 +67,7 @@ export default class AddUserBar extends Component {
                         />
                     </ToolbarGroup>
                     <ToolbarGroup>
-                        <Link to="/">
-                            <RaisedButton label="Go to list" secondary={true} />
-                        </Link>
-                    </ToolbarGroup>
-                    <ToolbarGroup>
-                        <RaisedButton label="Confirm" primary={true} onClick={() => changeUserInfo(this.state.userData)} />
+                        <RaisedButton label="Confirm" primary={true} onClick={() => { changeUserInfo(this.state.userData); history.push('/'); }} />
                     </ToolbarGroup>
                 </Toolbar>
             </div>

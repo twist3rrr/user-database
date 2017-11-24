@@ -1,4 +1,4 @@
-import { DATE_FORMAT } from './constants';
+import { DATE_FORMAT, SORTING_USER_LIST_TYPES } from './constants';
 import moment from 'moment';
 
 const convertDateFromUtcString = (stringDate) => {
@@ -74,11 +74,11 @@ const compareByDateOfBirth = (a, b) => {
 // ============== Gather compare functions in one object
 
 const compareFunctions = {
-    compareById,
-    compareByName,
-    compareByLastName,
-    compareByNickName,
-    compareByDateOfBirth
+    [SORTING_USER_LIST_TYPES.BY_ID]: compareById,
+    [SORTING_USER_LIST_TYPES.BY_FIRST_NAME]: compareByName,
+    [SORTING_USER_LIST_TYPES.BY_LAST_NAME]: compareByLastName,
+    [SORTING_USER_LIST_TYPES.BY_NICK_NAME]: compareByNickName,
+    [SORTING_USER_LIST_TYPES.BY_BIRTH_DATE]: compareByDateOfBirth
 };
 
 // ============================= COMPARE FUNCTIONS END ============================= //

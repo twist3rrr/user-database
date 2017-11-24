@@ -8,5 +8,5 @@ export default function EditUser(props) {
     const { userId, usersList, defaultChangeHandler, changeUserInfo } = props;
     const userMatch = findUserById(usersList, userId).user;
 
-    return <EditUserBar currentUserData={userMatch} changeUserInfo={changeUserInfo} defaultChangeHandler={defaultChangeHandler} />;
+    return <EditUserBar {...props} currentUserData={userMatch} changeUserInfo={changeUserInfo} defaultChangeHandler={defaultChangeHandler} />;
 }

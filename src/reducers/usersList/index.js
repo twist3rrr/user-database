@@ -66,7 +66,7 @@ export default function usersList(state = defaultState, action = {}) {
             const ListAfterChangeUserData = [
                 ...state.usersList.slice(0, userIndex),
                 newUser,
-                ...state.usersList.slice(userIndex + 1),
+                ...state.usersList.slice(userIndex + 1)
             ];
 
             return {

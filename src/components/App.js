@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // React router
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
 // Components
 import AddUserBar from './AddUserBar';
 import UsersTable from './UsersTable';
 import EditUser from './EditUser';
+import mobxUserBarConfig from './AddUserBar/mobx-form';
 // Actions
 import { addUser, deleteUser, changeUserInfo } from './../AC/user';
+import browserHistory from '../browserHistory';
 
 class App extends Component {
     constructor() {
@@ -46,6 +48,7 @@ class App extends Component {
                 <div>
                     <AddUserBar
                         defaultChangeHandler={this.defaultChangeHandler}
+                        form={mobxUserBarConfig}
                         addUser={addUser}
                     />
                     <UsersTable
@@ -57,13 +60,13 @@ class App extends Component {
         };
 
         return (
-            <Router>
+            <Router history={browserHistory}>
                 <div>
                     <Route exact path="/" component={userEditPage} />
                     <Route
                         path="/users/:userId"
                         render={({ match }) => {
-                            return <EditUser userId={match.params.userId} changeUserInfo={changeUserInfo} usersList={usersList} defaultChangeHandler={this.defaultChangeHandler} />;
+                            return <EditUser history={browserHistory} userId={match.params.userId} changeUserInfo={changeUserInfo} usersList={usersList} defaultChangeHandler={this.defaultChangeHandler} />;
                         }}
                     />
                 </div>

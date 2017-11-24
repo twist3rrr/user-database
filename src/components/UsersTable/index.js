@@ -26,6 +26,10 @@ export default class UsersTable extends Component {
         };
 
         this.stateSetValue = this.stateSetValue.bind(this);
+        this.SortingBlockStyle = {
+            display: 'block',
+            cursor: 'pointer'
+        };
     }
 
     stateSetValue(prop, value) {
@@ -49,11 +53,11 @@ export default class UsersTable extends Component {
                     displaySelectAll={false}
                 >
                     <TableRow>
-                        <TableHeaderColumn><span onClick={() => this.stateSetValue('sortingType', SORTING_USER_LIST_TYPES.BY_ID)}>ID ⇵</span></TableHeaderColumn>
-                        <TableHeaderColumn><span onClick={() => this.stateSetValue('sortingType', SORTING_USER_LIST_TYPES.BY_FIRST_NAME)}>First Name ⇵</span></TableHeaderColumn>
-                        <TableHeaderColumn><span onClick={() => this.stateSetValue('sortingType', SORTING_USER_LIST_TYPES.BY_LAST_NAME)}>Last Name ⇵</span></TableHeaderColumn>
-                        <TableHeaderColumn><span onClick={() => this.stateSetValue('sortingType', SORTING_USER_LIST_TYPES.BY_NICK_NAME)}>Nick Name ⇵</span></TableHeaderColumn>
-                        <TableHeaderColumn><span onClick={() => this.stateSetValue('sortingType', SORTING_USER_LIST_TYPES.BY_BIRTH_DATE)}>Date of Birth ⇵</span></TableHeaderColumn>
+                        <TableHeaderColumn><span style={this.SortingBlockStyle} role="presentation" onClick={() => this.stateSetValue('sortingType', SORTING_USER_LIST_TYPES.BY_ID)}>ID ⇵</span></TableHeaderColumn>
+                        <TableHeaderColumn><span style={this.SortingBlockStyle} role="presentation" onClick={() => this.stateSetValue('sortingType', SORTING_USER_LIST_TYPES.BY_FIRST_NAME)}>First Name ⇵</span></TableHeaderColumn>
+                        <TableHeaderColumn><span style={this.SortingBlockStyle} role="presentation" onClick={() => this.stateSetValue('sortingType', SORTING_USER_LIST_TYPES.BY_LAST_NAME)}>Last Name ⇵</span></TableHeaderColumn>
+                        <TableHeaderColumn><span style={this.SortingBlockStyle} role="presentation" onClick={() => this.stateSetValue('sortingType', SORTING_USER_LIST_TYPES.BY_NICK_NAME)}>Nick Name ⇵</span></TableHeaderColumn>
+                        <TableHeaderColumn><span style={this.SortingBlockStyle} role="presentation" onClick={() => this.stateSetValue('sortingType', SORTING_USER_LIST_TYPES.BY_BIRTH_DATE)}>Date of Birth ⇵</span></TableHeaderColumn>
                         <TableHeaderColumn
                             style={{
                                 width: 20
