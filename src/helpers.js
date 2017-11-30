@@ -23,6 +23,17 @@ const randomId = () => {
     return String(Math.random() * (10^15)).slice(2, 16);
 };
 
+const arrayFromObj = (obj) => {
+    const arr = [];
+    Object.keys(obj).map(key => {
+        obj[key].unicKey = key;
+        arr.push(obj[key]);
+        return true;
+    });
+
+    return arr;
+};
+
 // ============================= COMPARE FUNCTIONS ============================= //
 
 /**
@@ -84,6 +95,7 @@ const compareFunctions = {
 // ============================= COMPARE FUNCTIONS END ============================= //
 
 export {
+    arrayFromObj,
     convertDateFromUtcString,
     findUserById,
     randomId,

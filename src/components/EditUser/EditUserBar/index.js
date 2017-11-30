@@ -4,8 +4,6 @@ import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import DatePicker from 'material-ui/DatePicker';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-// React router components
-import { Link } from 'react-router-dom';
 
 export default class AddUserBar extends Component {
     constructor(props) {
@@ -25,6 +23,7 @@ export default class AddUserBar extends Component {
 
     render() {
         const { changeUserInfo, history } = this.props;
+        const { userData } = this.state;
         return (
             <div>
                 <Toolbar>
@@ -33,7 +32,7 @@ export default class AddUserBar extends Component {
                             <TextField
                                 hintText="Write your first name here ..."
                                 floatingLabelText="First name"
-                                value={this.state.userData.firstName}
+                                value={userData.firstName}
                                 onChange={(e) => { this.defaultChangeHandler(e.target.value, 'userData', 'firstName'); }}
                             />
                         </div>
@@ -43,7 +42,7 @@ export default class AddUserBar extends Component {
                             <TextField
                                 hintText="Write your last name here ..."
                                 floatingLabelText="Last name"
-                                value={this.state.userData.lastName}
+                                value={userData.lastName}
                                 onChange={(e) => { this.defaultChangeHandler(e.target.value, 'userData', 'lastName'); }}
                             />
                         </div>
@@ -53,7 +52,7 @@ export default class AddUserBar extends Component {
                             <TextField
                                 hintText="Write your nick-name here ..."
                                 floatingLabelText="Nick-name"
-                                value={this.state.userData.nickName}
+                                value={userData.nickName}
                                 onChange={(e) => { this.defaultChangeHandler(e.target.value, 'userData', 'nickName'); }}
                             />
                         </div>
@@ -62,12 +61,12 @@ export default class AddUserBar extends Component {
                         <DatePicker
                             hintText="Open to Year"
                             openToYearSelection={true}
-                            value={this.state.userData.dateOfBirth}
+                            value={userData.dateOfBirth}
                             onChange={(e, date) => { this.defaultChangeHandler(date, 'userData', 'dateOfBirth'); }}
                         />
                     </ToolbarGroup>
                     <ToolbarGroup>
-                        <RaisedButton label="Confirm" primary={true} onClick={() => { changeUserInfo(this.state.userData); history.push('/'); }} />
+                        <RaisedButton label="Confirm" primary={true} onClick={() => { changeUserInfo(userData); history.push('/'); }} />
                     </ToolbarGroup>
                 </Toolbar>
             </div>

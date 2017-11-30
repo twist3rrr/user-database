@@ -44,9 +44,9 @@ export default class UsersTable extends Component {
                 deleteUser
         } = this.props;
 
-        const sortedList = (this.state.sortingType && usersList.length) ? usersList.sort(compareFunctions[this.state.sortingType]) : usersList;
+        const sortedList = (this.state.sortingType && usersList) ? usersList.sort(compareFunctions[this.state.sortingType]) : usersList;
 
-        const usersTable = usersList.length ? (
+        const usersTable = usersList ? (
             <Table>
                 <TableHeader
                     adjustForCheckbox={false}
@@ -77,7 +77,7 @@ export default class UsersTable extends Component {
                 {
                     sortedList.map((user) => {
                         return (
-                            <TableRow key={user.id} selectable={false}>
+                            <TableRow key={user.unicKey} selectable={false}>
                                 <TableRowColumn>{user.id}</TableRowColumn>
                                 <TableRowColumn>{user.firstName}</TableRowColumn>
                                 <TableRowColumn>{user.lastName}</TableRowColumn>
@@ -114,7 +114,7 @@ export default class UsersTable extends Component {
                                 >
                                     <FloatingActionButton
                                         mini={true}
-                                        onClick={() => deleteUser(user.id)}
+                                        onClick={() => deleteUser(user.unicKey)}
                                         secondary={true}
                                         style={{
                                             float: 'right'

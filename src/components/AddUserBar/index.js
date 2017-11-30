@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 // Material Ui components
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import DatePicker from 'material-ui/DatePicker';
@@ -7,13 +7,6 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 // Mobx observer
 import { observer } from 'mobx-react';
-
-const initialUserData = {
-    firstName: '',
-    lastName: '',
-    nickName: '',
-    dateOfBirth: null
-};
 
 export default observer((props) => {
     const styles = {
