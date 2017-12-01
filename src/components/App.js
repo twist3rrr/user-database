@@ -7,6 +7,7 @@ import Spinner from './Spinner';
 import AddUserBar from './AddUserBar';
 import UsersTable from './UsersTable';
 import EditUser from './EditUser';
+// Mob-X form configurations
 import mobxUserBarConfig from './AddUserBar/mobx-form';
 // Actions
 import { addUser, deleteUser, changeUserInfo, fetchUsersList } from './../AC/user';
@@ -62,6 +63,7 @@ class App extends Component {
                     <UsersTable
                         usersList={usersList}
                         deleteUser={deleteUser}
+                        defaultChangeHandler={this.defaultChangeHandler}
                     />
                 </div>
             );
