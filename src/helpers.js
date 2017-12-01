@@ -37,7 +37,7 @@ const arrayFromObj = (obj) => {
 // ============================= COMPARE FUNCTIONS ============================= //
 
 /**
-    @see  { randomId, compareById, compareByName, compareByLastName, compareByNickName } connected to ./constants.js SORTING_USER_LIST_TYPES
+    @see  { randomId, compareById, compareByName, compareByLastName, compareByNickName, compareByDateOfBirth } connected to ./constants.js SORTING_USER_LIST_TYPES
  */
 
 const compareById = (a, b) => {

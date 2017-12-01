@@ -1,75 +1,103 @@
-import React, { Component } from 'react';
+import React from 'react';
 // Material Ui Components
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import DatePicker from 'material-ui/DatePicker';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
-export default class AddUserBar extends Component {
-    constructor(props) {
-        super(props);
-        const userData = props.currentUserData;
-        userData.dateOfBirth = userData.dateOfBirth ? new Date(userData.dateOfBirth) : null;
-        this.state = {
-            userData
-        };
+import { observer } from 'mobx-react';
 
-        this.toolbarGroupStyle = {
-            paddingBottom: 20
-        };
+export default observer((props) => {
 
-        this.defaultChangeHandler = this.props.defaultChangeHandler.bind(this);
-    }
+    const styles = {
+        toolbarGroupStyle: {
+            paddingBottom: 35,
+            paddingTop: 5
+        },
+        errorStyle: {
+            position: 'absolute',
+            bottom: -10
+        },
+        toolBarStyles: {
+            height: 70
+        },
+        datepickerWrapper: {
+            marginTop: -5
+        }
+    };
 
-    render() {
-        const { changeUserInfo, history } = this.props;
-        const { userData } = this.state;
-        return (
-            <div>
-                <Toolbar>
-                    <ToolbarGroup>
-                        <div style={this.toolbarGroupStyle}>
-                            <TextField
-                                hintText="Write your first name here ..."
-                                floatingLabelText="First name"
-                                value={userData.firstName}
-                                onChange={(e) => { this.defaultChangeHandler(e.target.value, 'userData', 'firstName'); }}
-                            />
-                        </div>
-                    </ToolbarGroup>
-                    <ToolbarGroup>
-                        <div style={this.toolbarGroupStyle}>
-                            <TextField
-                                hintText="Write your last name here ..."
-                                floatingLabelText="Last name"
-                                value={userData.lastName}
-                                onChange={(e) => { this.defaultChangeHandler(e.target.value, 'userData', 'lastName'); }}
-                            />
-                        </div>
-                    </ToolbarGroup>
-                    <ToolbarGroup>
-                        <div style={this.toolbarGroupStyle}>
-                            <TextField
-                                hintText="Write your nick-name here ..."
-                                floatingLabelText="Nick-name"
-                                value={userData.nickName}
-                                onChange={(e) => { this.defaultChangeHandler(e.target.value, 'userData', 'nickName'); }}
-                            />
-                        </div>
-                    </ToolbarGroup>
-                    <ToolbarGroup>
+    const { changeUserInfo, history, form, unicKey, id } = props;
+
+    const handleSubmit = () => {
+        changeUserInfo({
+            firstName: form.$('firstName').value,
+            lastName: form.$('lastName').value,
+            nickName: form.$('nickName').value,
+            dateOfBirth: form.$('dateOfBirth').value,
+            unicKey,
+            id
+        });
+
+        history.push('/');
+    };
+
+    const dateValue = form.$('dateOfBirth').value;
+    const datepickerValue = (typeof dateValue === 'string') ? new Date(dateValue) : dateValue;
+
+    form.handleSubmit = handleSubmit;
+
+    return (
+        <div>
+            <Toolbar style={styles.toolBarStyles}>
+                <ToolbarGroup>
+                    <div style={styles.toolbarGroupStyle}>
+                        <TextField
+                            {...form.$('firstName').bind()}
+                            errorText={form.$('firstName').error}
+                            hintText="Write your first name"
+                            floatingLabelText="Frist Name"
+                            errorStyle={styles.errorStyle}
+                        />
+                    </div>
+                </ToolbarGroup>
+                <ToolbarGroup>
+                    <div style={styles.toolbarGroupStyle}>
+                        <TextField
+                            {...form.$('lastName').bind()}
+                            errorText={form.$('lastName').error}
+                            hintText="Write your last name here ..."
+                            floatingLabelText="Last name"
+                            errorStyle={styles.errorStyle}
+                        />
+                    </div>
+                </ToolbarGroup>
+                <ToolbarGroup>
+                    <div style={styles.toolbarGroupStyle}>
+                        <TextField
+                            {...form.$('nickName').bind()}
+                            errorText={form.$('nickName').error}
+                            hintText="Write your nick-name here ..."
+                            floatingLabelText="Nick-name"
+                            errorStyle={styles.errorStyle}
+                        />
+                    </div>
+                </ToolbarGroup>
+                <ToolbarGroup>
+                    <div style={styles.datepickerWrapper}>
                         <DatePicker
+                            {...form.$('dateOfBirth').bind()}
+                            value={datepickerValue}
+                            errorText={form.$('dateOfBirth').error}
                             hintText="Open to Year"
                             openToYearSelection={true}
-                            value={userData.dateOfBirth}
-                            onChange={(e, date) => { this.defaultChangeHandler(date, 'userData', 'dateOfBirth'); }}
+                            errorStyle={styles.errorStyle}
                         />
-                    </ToolbarGroup>
-                    <ToolbarGroup>
-                        <RaisedButton label="Confirm" primary={true} onClick={() => { changeUserInfo(userData); history.push('/'); }} />
-                    </ToolbarGroup>
-                </Toolbar>
-            </div>
-        );
-    }
-}
+                    </div>
+                </ToolbarGroup>
+                <ToolbarGroup>
+                    <RaisedButton label="Confirm" primary={true} onClick={form.onSubmit} />
+                </ToolbarGroup>
+            </Toolbar>
+        </div>
+    );
+});
