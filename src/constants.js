@@ -1,4 +1,6 @@
 export const SUCCESS = '_SUCCESS';
+export const FAILURE = '_FAILURE';
+
 export const FETCH_USERS_LIST = 'FETCH_USERS_LIST';
 
 export const DATE_FORMAT = 'YYYY-MM-DD';

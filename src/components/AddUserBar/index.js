@@ -1,31 +1,18 @@
 import React from 'react';
+// PropTypes
+import PropTypes from 'prop-types';
 // Material Ui components
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import DatePicker from 'material-ui/DatePicker';
 import TextField from 'material-ui/TextField';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+// Custom styles
+import { UserBarStyles as styles } from '../../styles';
 // Mobx observer
 import { observer } from 'mobx-react';
 
 export default observer((props) => {
-    const styles = {
-        toolbarGroupStyle: {
-            paddingBottom: 35,
-            paddingTop: 5
-        },
-        errorStyle: {
-            position: 'absolute',
-            bottom: -10
-        },
-        toolBarStyles: {
-            height: 70
-        },
-        datepickerWrapper: {
-            marginTop: -5
-        }
-    };
-
     const { form, addUser } = props;
 
     const handleSubmit = () => {
@@ -46,7 +33,7 @@ export default observer((props) => {
 
     return (
         <form>
-            <Toolbar style={styles.toolBarStyles}>
+            <Toolbar style={styles.toolbarStyles}>
                 <ToolbarGroup>
                     <div style={styles.toolbarGroupStyle}>
                         <TextField
@@ -105,3 +92,7 @@ export default observer((props) => {
     );
 });
 
+observer.PropTypes = {
+    form: PropTypes.object.isRequired,
+    addUser: PropTypes.func.isRequired
+};

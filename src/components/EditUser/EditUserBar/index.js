@@ -1,31 +1,17 @@
 import React from 'react';
+// PropTypes
+import PropTypes from 'prop-types';
 // Material Ui Components
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import DatePicker from 'material-ui/DatePicker';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+// Custom styles
+import { UserBarStyles as styles } from '../../../styles';
 
 import { observer } from 'mobx-react';
 
 export default observer((props) => {
-
-    const styles = {
-        toolbarGroupStyle: {
-            paddingBottom: 35,
-            paddingTop: 5
-        },
-        errorStyle: {
-            position: 'absolute',
-            bottom: -10
-        },
-        toolBarStyles: {
-            height: 70
-        },
-        datepickerWrapper: {
-            marginTop: -5
-        }
-    };
-
     const { changeUserInfo, history, form, unicKey, id } = props;
 
     const handleSubmit = () => {
@@ -48,7 +34,7 @@ export default observer((props) => {
 
     return (
         <div>
-            <Toolbar style={styles.toolBarStyles}>
+            <Toolbar style={styles.toolbarStyles}>
                 <ToolbarGroup>
                     <div style={styles.toolbarGroupStyle}>
                         <TextField
@@ -101,3 +87,11 @@ export default observer((props) => {
         </div>
     );
 });
+
+observer.PropTypes = {
+    changeUserInfo: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
+    form: PropTypes.object.isRequired,
+    unicKey: PropTypes.string.isRequired,
+    id: PropTypes.object.isRequired
+};

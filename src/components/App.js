@@ -15,6 +15,8 @@ import { addUser, deleteUser, changeUserInfo, fetchUsersList } from './../AC/use
 import browserHistory from '../browserHistory';
 // Helpers
 import { arrayFromObj } from '../helpers';
+// PropTypes
+import PropTypes from 'prop-types';
 
 class App extends Component {
     constructor() {
@@ -101,3 +103,12 @@ export default connect((state) => {
     changeUserInfo,
     fetchUsersList
 })(App);
+
+App.PropTypes = {
+    addUser: PropTypes.func.isRequired,
+    deleteUser: PropTypes.func.isRequired,
+    changeUserInfo: PropTypes.func.isRequired,
+    fetchUsersList: PropTypes.func.isRequired,
+    usersList: PropTypes.object,
+    isLoading: PropTypes.bool.isRequired
+};
